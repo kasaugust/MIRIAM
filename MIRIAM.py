@@ -8,13 +8,9 @@ import sarmata
 import subprocess
 from pathlib import Path
 
-
 global count
 count = 1
-
-
 def decide():
-
     informacja_semantyczna = sarmata.run()
 
     if informacja_semantyczna == "opis":
@@ -50,9 +46,13 @@ def decide():
         mikrofon.record()
         decide()
 
-
 def if_pressed():
-    speaker.say_hello()
+    global count
+    if count==1:
+        speaker.say_hello()
+    else:
+        speaker.ask_button()
+    count=count+1
     mikrofon.record()
     decide()
 

@@ -11,10 +11,10 @@ from python_speech_features import mfcc
 from python_speech_features import base
 from sklearn.mixture import GaussianMixture as GMM
 
-recordings=6
-ramkowanie=0.02
+recordings=7
+ramkowanie=0.025
 components=4
-delta_memory=3
+delta_memory=2
 path = os.getcwd()
 allMFCC = numpy.empty([1, recordings], dtype=object)
 i=0

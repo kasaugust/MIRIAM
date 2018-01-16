@@ -41,10 +41,31 @@ def decide():
             mikrofon.record()
             decide()
 
-    else:
+    elif informacja_semantyczna=="NO_MATCH" or informacja_semantyczna=="":
         speaker.misunderstand()
         mikrofon.record()
         decide()
+    else:
+        informacja_rozdzielona=informacja_semantyczna.split(" ",1)
+        if informacja_rozdzielona[0]=="opis":
+            film_path = Path("filmoteka/" + informacja_rozdzielona[1] + ".txt")
+            if film_path.is_file():
+                f = open(os.path.relpath(film_path), 'r')
+                label2 = Label(root, text=f.read(), bg="White", font="Times 12")
+                label2.pack(side=TOP, fill=BOTH)
+                f.close()
+            else:
+                speaker.misunderstand()
+                mikrofon.record()
+                decide()
+        elif informacja_rozdzielona[0]=="ogladanie":
+            film_path = Path("filmoteka/" + informacja_rozdzielona[1] + ".avi")
+            if film_path.is_file():
+                subprocess.Popen(["C:/Program Files (x86)/VideoLAN/VLC/vlc.exe", os.path.relpath(film_path)])
+            else:
+                speaker.misunderstand()
+                mikrofon.record()
+                decide()
 
 def if_pressed():
     global count

@@ -11,7 +11,7 @@ from python_speech_features import mfcc
 from python_speech_features import base
 from sklearn.mixture import GaussianMixture as GMM
 
-recordings=7
+recordings=15
 ramkowanie=0.025
 components=4
 delta_memory=2
@@ -19,6 +19,7 @@ path = os.getcwd()
 allMFCC = numpy.empty([1, recordings], dtype=object)
 i=0
 for file in os.listdir(os.path.join(path, 'miriam')):
+    print("1")
     fs, samples = wav.read(os.path.join(path, 'miriam', file))
     MFCC = mfcc(samples, fs,winlen=ramkowanie, nfft=round(ramkowanie * fs) + 1, numcep=13)
     delta=base.delta(MFCC, delta_memory)
@@ -41,7 +42,7 @@ with open('model.bin', 'wb') as f:
     f.close()
 def if_Miriam(ramkowanie, delta_memory):
     treshold = -50
-    path="miriam/1.wav"
+    path="waves/answer.wav"
     with open('model.bin', 'rb') as f:
         model=pickle.load(f)
         f.close()
